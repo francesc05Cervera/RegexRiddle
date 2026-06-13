@@ -1,7 +1,13 @@
-const app = require('./app');
+const express = require('express');
+const app = express();
+const port = 3000;
 
-const PORT = 3000;
+app.use(express.json());
 
-app.listen(PORT, () => {
-    console.log(`Server attivo su http://localhost:${PORT}`);
+app.get('/api/test', (req, res) => {
+    res.json({ message: 'Backend collegato correttamente' });
+});
+
+app.listen(port, () => {
+    console.log(`Server in ascolto su http://localhost:${port}`);
 });
