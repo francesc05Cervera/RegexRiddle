@@ -1,13 +1,7 @@
-const express = require('express');
-const app = express();
-const port = 3000;
+const app = require('./app');
 
-app.use(express.json());
+const PORT = process.env.PORT || 3000;
 
-app.get('/api/test', (req, res) => {
-    res.json({ message: 'Backend collegato correttamente' });
-});
-
-app.listen(port, () => {
-    console.log(`Server in ascolto su http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Server in ascolto sulla porta ${PORT}`);
 });
