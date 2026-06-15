@@ -1,6 +1,15 @@
 const { randomUUID } = require('crypto');
 const { challenges } = require('../store/challenges.data');
 
+const getAllChallenges = async (req, res) => {
+  try {
+    const publicChallenges = challenges.map(({ secretRegex, positiveControls, negativeControls, ...rest }) => rest);
+    return res.status(200).json(publicChallenges);
+  } catch (error) {
+    return res.status(500).json({ message: 'Errore interno del server' });
+  }
+};
+
 const createChallenge = async (req, res) => {
   try {
     const {
@@ -41,12 +50,8 @@ const createChallenge = async (req, res) => {
       challenge: newChallenge,
     });
   } catch (error) {
-    return res.status(500).json({
-      message: 'Errore interno del server',
-    });
+    return res.status(500).json({ message: 'Errore interno del server' });
   }
 };
 
-module.exports = {
-  createChallenge,
-};
+module.exports = { getAllChallenges, createChallenge };

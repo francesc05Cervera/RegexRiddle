@@ -1,0 +1,31 @@
+<div class="challenge-list-container">
+  <h2>Elenco Challenge</h2>
+
+  <a routerLink="/create-challenge">Crea una nuova challenge</a>
+
+  @if (isLoading) {
+    <p>Caricamento...</p>
+  }
+
+  @if (errorMessage) {
+    <p>{{ errorMessage }}</p>
+  }
+
+  @if (!isLoading && challenges.length === 0) {
+    <p>Nessuna challenge disponibile.</p>
+  }
+
+  @if (!isLoading && challenges.length > 0) {
+    <div>
+      @for (challenge of challenges; track challenge.id) {
+        <div style="border: 1px solid #ccc; padding: 12px; margin: 12px 0;">
+          <p><strong>ID:</strong> {{ challenge.id }}</p>
+          <p><strong>Esempio positivo:</strong> {{ challenge.positiveExample }}</p>
+          <p><strong>Esempio negativo:</strong> {{ challenge.negativeExample }}</p>
+
+          <button type="button">Apri</button>
+        </div>
+      }
+    </div>
+  }
+</div>
