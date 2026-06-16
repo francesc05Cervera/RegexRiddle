@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -18,7 +18,7 @@ export class LoginComponent {
   errorMessage = '';
   isLoading = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private cdr: ChangeDetectorRef) {}
 
   onSubmit() {
     if (!this.email || !this.password) {
@@ -33,10 +33,12 @@ export class LoginComponent {
   next: () => {
     this.isLoading = false;
     this.router.navigate(['/challenges']);
+    this.cdr.detectChanges();
   },
   error: (err) => {
     this.errorMessage = err.error?.message || 'Errore durante il login';
     this.isLoading = false;
+    this.cdr.detectChanges();
   }
 });
   }

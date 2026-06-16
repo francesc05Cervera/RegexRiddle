@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ChallengeService } from '../../services/challenge.service';
 
 @Component({
   selector: 'app-create-challenge',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './create-challenge.html',
   styleUrl: './create-challenge.css'
 })
