@@ -1,34 +1,48 @@
 <div class="challenge-list-container">
-  <div style="display: flex; justify-content: space-between; align-items: center;">
-    <h2>Elenco Challenge</h2>
-    <button (click)="logout()">Logout</button>
+
+  <div class="cl-header">
+    <span class="cl-title">CHALLENGE</span>
+    <div class="cl-actions">
+      <a routerLink="/create-challenge" class="btn-new-challenge">+ NUOVA</a>
+      <button class="btn-secondary" (click)="logout()">Logout</button>
+    </div>
   </div>
 
-  <a routerLink="/create-challenge">Crea una nuova challenge</a>
-
   @if (isLoading) {
-    <p>Caricamento...</p>
+    <div class="cl-state">Caricamento...</div>
   }
 
   @if (errorMessage) {
-    <p>{{ errorMessage }}</p>
+    <div class="cl-state">
+      <p class="msg-error">{{ errorMessage }}</p>
+    </div>
   }
 
   @if (!isLoading && challenges.length === 0) {
-    <p>Nessuna challenge disponibile.</p>
+    <div class="cl-state">Nessuna challenge disponibile.</div>
   }
 
   @if (!isLoading && challenges.length > 0) {
-    <div>
+    <div class="challenges-grid">
       @for (challenge of challenges; track challenge.id) {
-        <div style="border: 1px solid #ccc; padding: 12px; margin: 12px 0;">
-          <p><strong>ID:</strong> {{ challenge.id }}</p>
-          <p><strong>Esempio positivo:</strong> {{ challenge.positiveExample }}</p>
-          <p><strong>Esempio negativo:</strong> {{ challenge.negativeExample }}</p>
-
-          <a [routerLink]="['/challenges', challenge.id]">Apri</a>
+        <div class="challenge-card">
+          <span class="card-id">#{{ challenge.id }}</span>
+          <div class="card-examples">
+            <div class="card-example">
+              <span class="label pos">✔</span>
+              <span class="value">{{ challenge.positiveExample }}</span>
+            </div>
+            <div class="card-example">
+              <span class="label neg">✘</span>
+              <span class="value">{{ challenge.negativeExample }}</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a [routerLink]="['/challenges', challenge.id]" class="btn-open">Apri →</a>
+          </div>
         </div>
       }
     </div>
   }
+
 </div>

@@ -9,7 +9,8 @@ import { RouterLink } from '@angular/router';
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
-  templateUrl: './login.html'
+  templateUrl: './login.html',
+  styleUrl: './login.css'
 })
 export class LoginComponent {
   email = '';

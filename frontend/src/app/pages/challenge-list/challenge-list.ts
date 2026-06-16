@@ -9,7 +9,8 @@ import { AuthService } from '../../services/auth.service';
   selector: 'app-challenge-list',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './challenge-list.html'
+  templateUrl: './challenge-list.html',
+  styleUrl: './challenge-list.css'
 })
 export class ChallengeListComponent implements OnInit {
   challenges: Challenge[] = [];

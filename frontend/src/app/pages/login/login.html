@@ -1,37 +1,27 @@
 <div class="login-container">
-  <h2>Login</h2>
+  <div class="login-box">
+    <div class="login-logo">REGEX<span style="color:var(--text)">RIDDLE</span></div>
+    <p class="login-tagline">Risolvi l'enigma. Scopri la regex.</p>
 
-  <form (ngSubmit)="onSubmit()">
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" [(ngModel)]="email" name="email" placeholder="La tua email" />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" type="password" [(ngModel)]="password" name="password" placeholder="••••••••" />
+      </div>
 
-    <div>
-      <label for="email">Email</label>
-      <input
-        id="email"
-        type="email"
-        [(ngModel)]="email"
-        name="email"
-        placeholder="La tua email"
-      />
-    </div>
+      @if (errorMessage) {
+        <p class="msg-error">{{ errorMessage }}</p>
+      }
 
-    <div>
-      <label for="password">Password</label>
-      <input
-        id="password"
-        type="password"
-        [(ngModel)]="password"
-        name="password"
-        placeholder="La tua password"
-      />
-    </div>
+      <button type="submit" class="btn-primary" [disabled]="isLoading">
+        {{ isLoading ? 'Accesso...' : 'ACCEDI' }}
+      </button>
+    </form>
 
-    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
-
-    <button type="submit" [disabled]="isLoading">
-      {{ isLoading ? 'Caricamento...' : 'Accedi' }}
-    </button>
-
-  </form>
-
-  <p>Non hai un account? <a routerLink="/register">Registrati</a></p>
+    <p class="login-footer">Non hai un account? <a routerLink="/register">Registrati</a></p>
+  </div>
 </div>

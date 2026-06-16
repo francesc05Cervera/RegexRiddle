@@ -1,0 +1,148 @@
+.challenge-list-container {
+  min-height: 100vh;
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* HEADER */
+.cl-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.cl-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--primary);
+  letter-spacing: 0.08em;
+}
+
+.cl-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+/* NUOVA CHALLENGE LINK */
+.btn-new-challenge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.2rem;
+  background: var(--primary);
+  color: #0f1117;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: opacity 0.2s, box-shadow 0.2s;
+}
+
+.btn-new-challenge:hover {
+  opacity: 0.9;
+  box-shadow: 0 0 16px var(--primary-glow);
+}
+
+/* STATO VUOTO / LOADING */
+.cl-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* GRIGLIA CHALLENGE */
+.challenges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+/* CARD */
+.challenge-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.challenge-card:hover {
+  border-color: rgba(163, 230, 53, 0.3);
+  box-shadow: 0 0 20px rgba(163, 230, 53, 0.08);
+}
+
+.card-id {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.card-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.card-example {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+
+.card-example .label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  min-width: 24px;
+}
+
+.card-example .label.pos { color: var(--primary); }
+.card-example .label.neg { color: var(--error); }
+
+.card-example .value {
+  color: var(--text);
+  background: var(--surface-2);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
+}
+
+.card-footer {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.btn-open {
+  display: inline-block;
+  padding: 0.45rem 1rem;
+  background: var(--primary-dim);
+  color: var(--primary);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.btn-open:hover {
+  background: rgba(163, 230, 53, 0.25);
+}

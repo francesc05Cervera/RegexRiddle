@@ -8,7 +8,8 @@ import { ChallengeService } from '../../services/challenge.service';
   selector: 'app-challenge-detail',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
-  templateUrl: './challente-details.html'
+  templateUrl: './challente-details.html',
+  styleUrl: './challenge-detail.css'
 })
 export class ChallengeDetailComponent implements OnInit {
   challenge: any = null;

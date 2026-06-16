@@ -1,48 +1,31 @@
 <div class="register-container">
-  <h2>Registrati</h2>
+  <div class="register-box">
+    <div class="register-logo">REGEX<span style="color:var(--text)">RIDDLE</span></div>
+    <p class="register-tagline">Crea il tuo account.</p>
 
-  <form (ngSubmit)="onSubmit()">
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input id="username" type="text" [(ngModel)]="username" name="username" placeholder="Il tuo username" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" [(ngModel)]="email" name="email" placeholder="La tua email" />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" type="password" [(ngModel)]="password" name="password" placeholder="••••••••" />
+      </div>
 
-    <div>
-      <label for="username">Username</label>
-      <input
-        id="username"
-        type="text"
-        [(ngModel)]="username"
-        name="username"
-        placeholder="Il tuo username"
-      />
-    </div>
+      @if (errorMessage) {
+        <p class="msg-error">{{ errorMessage }}</p>
+      }
 
-    <div>
-      <label for="email">Email</label>
-      <input
-        id="email"
-        type="email"
-        [(ngModel)]="email"
-        name="email"
-        placeholder="La tua email"
-      />
-    </div>
+      <button type="submit" class="btn-primary" [disabled]="isLoading">
+  {{ isLoading ? 'Registrazione...' : 'REGISTRATI' }}
+</button>
+    </form>
 
-    <div>
-      <label for="password">Password</label>
-      <input
-        id="password"
-        type="password"
-        [(ngModel)]="password"
-        name="password"
-        placeholder="La tua password"
-      />
-    </div>
-
-    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
-
-    <button type="submit" [disabled]="isLoading">
-      {{ isLoading ? 'Caricamento...' : 'Registrati' }}
-    </button>
-
-  </form>
-
-  <p>Hai già un account? <a routerLink="/login">Accedi</a></p>
+    <p class="register-footer">Hai già un account? <a routerLink="/login">Accedi</a></p>
+  </div>
 </div>

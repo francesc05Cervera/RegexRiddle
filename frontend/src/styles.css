@@ -1,1 +1,220 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --bg:           #0f1117;
+  --surface:      #1a1d27;
+  --surface-2:    #222638;
+  --border:       rgba(255,255,255,0.08);
+  --primary:      #a3e635;
+  --primary-dim:  rgba(163,230,53,0.15);
+  --primary-glow: rgba(163,230,53,0.3);
+  --text:         #e2e8f0;
+  --text-muted:   #64748b;
+  --error:        #f87171;
+  --success:      #a3e635;
+  --font-display: 'Orbitron', monospace;
+  --font-mono:    'JetBrains Mono', monospace;
+  --font-body:    'Inter', sans-serif;
+  --radius:       0.75rem;
+  --radius-sm:    0.375rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* CONTAINER */
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 0 40px rgba(0,0,0,0.4);
+}
+
+/* TITOLI */
+.page-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+.page-subtitle {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin-bottom: 2rem;
+}
+
+/* FORM */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.form-group input,
+.form-group textarea {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  padding: 0.75rem 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  width: 100%;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-dim);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* BOTTONI */
+.btn-primary {
+  width: 100%;
+  padding: 0.875rem;
+  background: var(--primary);
+  color: #0f1117;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: opacity 0.2s, box-shadow 0.2s;
+  margin-top: 0.5rem;
+}
+
+.btn-primary:hover:not(:disabled) {
+  opacity: 0.9;
+  box-shadow: 0 0 20px var(--primary-glow);
+}
+
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.btn-secondary:hover {
+  color: var(--text);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.btn-danger {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  color: var(--error);
+  border: 1px solid rgba(248,113,113,0.3);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-danger:hover {
+  background: rgba(248,113,113,0.1);
+}
+
+/* MESSAGGI */
+.msg-error {
+  color: var(--error);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(248,113,113,0.1);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--error);
+}
+
+.msg-success {
+  color: var(--success);
+  font-size: 0.85rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--primary-dim);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--primary);
+}
+
+/* LINK */
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+a:hover { opacity: 0.8; }
+
+/* MONO TEXT */
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+/* BADGE */
+.badge-pos {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  background: rgba(163,230,53,0.15);
+  color: var(--primary);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-neg {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  background: rgba(248,113,113,0.15);
+  color: var(--error);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}

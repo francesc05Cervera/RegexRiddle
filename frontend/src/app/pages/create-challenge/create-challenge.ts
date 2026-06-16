@@ -7,7 +7,8 @@ import { ChallengeService } from '../../services/challenge.service';
   selector: 'app-create-challenge',
   standalone: true,
   imports: [FormsModule],
-  templateUrl: './create-challenge.html'
+  templateUrl: './create-challenge.html',
+  styleUrl: './create-challenge.css'
 })
 export class CreateChallengeComponent {
   secretRegex = '';
@@ -65,7 +66,7 @@ export class CreateChallengeComponent {
         this.resetForm();
 
         setTimeout(() => {
-          this.router.navigate(['/login']);
+          this.router.navigate(['/challenges']);
         }, 800);
       },
       error: (err) => {

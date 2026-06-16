@@ -1,44 +1,60 @@
-<div>
-  <a routerLink="/challenges">← Torna alla lista</a>
+<div class="cd-container">
+  <a routerLink="/challenges" class="cd-back">← Torna alla lista</a>
 
   @if (isLoading) {
-    <p>Caricamento...</p>
+    <div style="color:var(--text-muted); padding: 2rem 0">Caricamento...</div>
   }
 
   @if (errorMessage) {
-    <p>{{ errorMessage }}</p>
+    <p class="msg-error">{{ errorMessage }}</p>
   }
 
   @if (!isLoading && challenge) {
-    <h2>Challenge</h2>
-    <p><strong>Esempio positivo:</strong> {{ challenge.positiveExample }}</p>
-    <p><strong>Esempio negativo:</strong> {{ challenge.negativeExample }}</p>
+    <div class="cd-title">ENIGMA</div>
 
-    <hr>
+    <div class="cd-examples">
+      <div class="cd-example-box">
+        <div class="cd-example-label pos">✔ Fa match</div>
+        <div class="cd-example-value">{{ challenge.positiveExample }}</div>
+      </div>
+      <div class="cd-example-box">
+        <div class="cd-example-label neg">✘ Non fa match</div>
+        <div class="cd-example-value">{{ challenge.negativeExample }}</div>
+      </div>
+    </div>
 
-    <h3>Inserisci la tua regex</h3>
-    <input
-      type="text"
-      [(ngModel)]="userRegex"
-      placeholder="es. ^[a-z]+$"
-    />
-    <button (click)="submitAttempt()" [disabled]="isSubmitting || !userRegex">
-      {{ isSubmitting ? 'Verifica...' : 'Verifica' }}
-    </button>
-
-    @if (attemptError) {
-      <p style="color: red">{{ attemptError }}</p>
-    }
+    <div class="cd-input-section">
+      <h3>INSERISCI LA TUA REGEX</h3>
+      <div class="cd-regex-row">
+        <input
+          type="text"
+          [(ngModel)]="userRegex"
+          placeholder="es. ^[a-z]+$"
+        />
+        <button class="btn-verify" (click)="submitAttempt()" [disabled]="isSubmitting || !userRegex">
+          {{ isSubmitting ? 'Verifica...' : 'VERIFICA' }}
+        </button>
+      </div>
+      @if (attemptError) {
+        <p class="msg-error" style="margin-top: 0.75rem">{{ attemptError }}</p>
+      }
+    </div>
 
     @if (attemptResult) {
-      <p><strong>{{ attemptResult.passed ? '✅ Corretto!' : '❌ Non corretto' }}</strong></p>
-      @for (r of attemptResult.results; track r.input) {
-        <p>
-          {{ r.expected ? '✔' : '✘' }} atteso |
-          {{ r.actual ? '✔' : '✘' }} ottenuto |
-          "{{ r.input }}"
-        </p>
-      }
+      <div class="cd-result">
+        <div class="cd-result-header" [class.passed]="attemptResult.passed" [class.failed]="!attemptResult.passed">
+          {{ attemptResult.passed ? '✅ CORRETTO!' : '❌ NON CORRETTO' }}
+        </div>
+        @for (r of attemptResult.results; track r.input) {
+          <div class="cd-result-row">
+            <span class="cd-result-icon" [class.ok]="r.expected === r.actual" [class.ko]="r.expected !== r.actual">
+              {{ r.expected === r.actual ? '✔' : '✘' }}
+            </span>
+            <span class="cd-result-input">{{ r.input }}</span>
+            <span class="cd-result-meta">atteso {{ r.expected ? '✔' : '✘' }} · ottenuto {{ r.actual ? '✔' : '✘' }}</span>
+          </div>
+        }
+      </div>
     }
   }
 </div>

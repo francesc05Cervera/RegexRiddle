@@ -1,72 +1,89 @@
-<div class="challenge-container">
-  <h2>Crea una Challenge</h2>
-  <p>Versione Nuova</p>
+<div class="cc-container">
+  <a routerLink="/challenges" class="cc-back">← Torna alla lista</a>
+
+  <div class="cc-title">CREA CHALLENGE</div>
+  <p class="cc-subtitle">Definisci la regex segreta e gli esempi di test.</p>
+
   <form (ngSubmit)="onSubmit()">
-    <div>
-      <label for="secretRegex">Regex segreta</label>
-      <input
-        id="secretRegex"
-        type="text"
-        [(ngModel)]="secretRegex"
-        name="secretRegex"
-        placeholder="Es: ^[a-z]+$"
-      />
+
+    <div class="cc-section">
+      <div class="cc-section-title">Regex segreta</div>
+      <div class="form-group">
+        <label for="secretRegex">Pattern</label>
+        <input
+          id="secretRegex"
+          type="text"
+          [(ngModel)]="secretRegex"
+          name="secretRegex"
+          placeholder="Es: ^[a-z]+$"
+        />
+      </div>
     </div>
 
-    <div>
-      <label for="positiveExample">Esempio positivo</label>
-      <input
-        id="positiveExample"
-        type="text"
-        [(ngModel)]="positiveExample"
-        name="positiveExample"
-        placeholder="Stringa che fa match"
-      />
+    <div class="cc-section">
+      <div class="cc-section-title">Esempi visibili ai giocatori</div>
+      <div class="cc-row">
+        <div class="form-group">
+          <label for="positiveExample">Esempio positivo</label>
+          <input
+            id="positiveExample"
+            type="text"
+            [(ngModel)]="positiveExample"
+            name="positiveExample"
+            placeholder="Stringa che fa match"
+          />
+        </div>
+        <div class="form-group">
+          <label for="negativeExample">Esempio negativo</label>
+          <input
+            id="negativeExample"
+            type="text"
+            [(ngModel)]="negativeExample"
+            name="negativeExample"
+            placeholder="Stringa che NON fa match"
+          />
+        </div>
+      </div>
     </div>
 
-    <div>
-      <label for="negativeExample">Esempio negativo</label>
-      <input
-        id="negativeExample"
-        type="text"
-        [(ngModel)]="negativeExample"
-        name="negativeExample"
-        placeholder="Stringa che NON fa match"
-      />
-    </div>
-
-    <div>
-      <label for="positiveControls">Controlli positivi (uno per riga)</label>
-      <textarea
-        id="positiveControls"
-        [(ngModel)]="positiveControlsInput"
-        name="positiveControlsInput"
-        rows="4"
-        placeholder="abc&#10;hello&#10;world"
-      ></textarea>
-    </div>
-
-    <div>
-      <label for="negativeControls">Controlli negativi (uno per riga)</label>
-      <textarea
-        id="negativeControls"
-        [(ngModel)]="negativeControlsInput"
-        name="negativeControlsInput"
-        rows="4"
-        placeholder="123&#10;ABC&#10;test!"
-      ></textarea>
+    <div class="cc-section">
+      <div class="cc-section-title">Controlli di verifica</div>
+      <div class="cc-row">
+        <div class="form-group">
+          <label for="positiveControls">Controlli positivi</label>
+          <textarea
+            id="positiveControls"
+            [(ngModel)]="positiveControlsInput"
+            name="positiveControlsInput"
+            rows="5"
+            placeholder="abc&#10;hello&#10;world"
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="negativeControls">Controlli negativi</label>
+          <textarea
+            id="negativeControls"
+            [(ngModel)]="negativeControlsInput"
+            name="negativeControlsInput"
+            rows="5"
+            placeholder="123&#10;ABC&#10;test!"
+          ></textarea>
+        </div>
+      </div>
     </div>
 
     @if (errorMessage) {
-      <p class="error">{{ errorMessage }}</p>
+      <p class="msg-error">{{ errorMessage }}</p>
     }
-
     @if (successMessage) {
-      <p class="success">{{ successMessage }}</p>
+      <p class="msg-success">{{ successMessage }}</p>
     }
 
-    <button type="submit" [disabled]="isLoading">
-      {{ isLoading ? 'Creazione...' : 'Crea Challenge' }}
-    </button>
+    <div class="cc-footer">
+      <button type="submit" class="btn-primary" [disabled]="isLoading">
+        {{ isLoading ? 'Creazione...' : 'CREA CHALLENGE' }}
+      </button>
+    </div>
+
   </form>
 </div>
