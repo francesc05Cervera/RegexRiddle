@@ -1,4 +1,7 @@
 require('dotenv').config();
+require('./models/user');
+require('./models/challenge');
+require('./models/attempt');
 
 const express = require('express');
 const cors = require('cors');
@@ -8,6 +11,9 @@ const authRoutes = require('./routes/auth.routes');
 const challengeRoutes = require('./routes/challenge.routes');
 
 const app = express();
+const sequelize = require('../db');
+
+sequelize.sync().then(() => console.log('✅ Database SQLite sincronizzato'));
 
 app.use(cors({
   origin: 'http://localhost:4200',
