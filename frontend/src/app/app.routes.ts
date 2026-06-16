@@ -2,7 +2,14 @@ import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guards';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', 
+    loadComponent: () => import('./pages/landing/landing').then(m => m.LandingComponent) 
+  },
+
+  { path: 'come-si-gioca', 
+    loadComponent: () => import('./pages/come-si-gioca/come-si-gioca').then(m => m.ComeSiGiocaComponent) 
+  },
+
   {
     path: 'login',
     loadComponent: () => import('./pages/login/login').then(m => m.LoginComponent)
@@ -26,5 +33,11 @@ export const routes: Routes = [
     canActivate: [authGuard],
     loadComponent: () => import('./pages/create-challenge/create-challenge').then(m => m.CreateChallengeComponent)
   },
+
+  {
+  path: 'leaderboard',
+  canActivate: [authGuard],
+  loadComponent: () => import('./pages/leaderboard/leaderboard').then(m => m.LeaderboardComponent)
+},
   { path: '**', redirectTo: 'login' }
 ];

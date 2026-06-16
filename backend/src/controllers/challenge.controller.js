@@ -1,6 +1,7 @@
-const { Op } = require('sequelize');
+const { Op, Sequelize } = require('sequelize');
 const Challenge = require('../models/challenge');
 const Attempt = require('../models/attempt');
+const User = require('../models/user');
 
 const getAllChallenges = async (req, res) => {
   try {
@@ -69,7 +70,6 @@ const submitAttempt = async (req, res) => {
     const allResults = [...positiveResults, ...negativeResults];
     const passed = allResults.every(r => r.expected === r.actual);
 
-    // Salva il tentativo nel DB
     await Attempt.create({ userId: req.user.id, challengeId: id, regex, passed });
 
     return res.status(200).json({ passed, results: allResults });
@@ -78,4 +78,37 @@ const submitAttempt = async (req, res) => {
   }
 };
 
-module.exports = { getAllChallenges, getChallengeById, createChallenge, submitAttempt };
+const getLeaderboard = async (req, res) => {
+  try {
+    const solvedRows = await Attempt.findAll({
+      attributes: [
+        'userId',
+        [Sequelize.fn('COUNT', Sequelize.fn('DISTINCT', Sequelize.col('Attempt.challengeId'))), 'solved'],
+      ],
+      where: { passed: true },
+      include: [{ model: User, as: 'user', attributes: ['username', 'avatarUrl'] }],
+      group: ['userId', 'user.id'],
+      raw: false,
+    });
+
+    const result = await Promise.all(solvedRows.map(async (row) => {
+      const totalAttempts = await Attempt.count({ where: { userId: row.userId } });
+      const solved = parseInt(row.getDataValue('solved'));
+      return {
+        username: row.user.username,
+        avatarUrl: row.user.avatarUrl,
+        solved,
+        avgAttempts: solved > 0 ? (totalAttempts / solved).toFixed(1) : '-',
+      };
+    }));
+
+    result.sort((a, b) => b.solved - a.solved || parseFloat(a.avgAttempts) - parseFloat(b.avgAttempts));
+
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Errore interno del server' });
+  }
+};
+
+module.exports = { getAllChallenges, getChallengeById, createChallenge, submitAttempt, getLeaderboard };

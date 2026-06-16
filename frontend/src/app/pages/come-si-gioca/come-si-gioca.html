@@ -1,0 +1,65 @@
+<div class="csg-container">
+
+  <nav class="landing-nav">
+    <a routerLink="/" class="nav-logo">REGEX<span class="nav-logo-white">RIDDLE</span></a>
+    <div class="nav-links">
+      <a routerLink="/login" class="nav-btn-login">Accedi</a>
+      <a routerLink="/register" class="nav-btn-register">Registrati</a>
+    </div>
+  </nav>
+
+  <div class="csg-content">
+    <a routerLink="/" class="cd-back">← Torna alla home</a>
+
+    <h1 class="csg-title">COME SI GIOCA</h1>
+    <p class="csg-intro">RegexRiddle è un gioco basato sulle espressioni regolari. Ogni sfida nasconde un pattern segreto — il tuo obiettivo è scoprirlo.</p>
+
+    <div class="csg-steps">
+
+      <div class="csg-step">
+        <div class="csg-step-num">01</div>
+        <div class="csg-step-body">
+          <h3>Osserva gli esempi</h3>
+          <p>Ogni challenge mostra due esempi: una stringa che <span class="pos">fa match</span> con la regex segreta e una che <span class="neg">non fa match</span>. Sono i tuoi unici indizi.</p>
+          <div class="csg-demo">
+            <div class="demo-row"><span class="badge-pos">✔</span> <code>hello</code></div>
+            <div class="demo-row"><span class="badge-neg">✘</span> <code>HELLO</code></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="csg-step">
+        <div class="csg-step-num">02</div>
+        <div class="csg-step-body">
+          <h3>Formula la tua ipotesi</h3>
+          <p>Analizza gli esempi e prova a capire il pattern. Forse la regex richiede solo lettere minuscole? O inizia con un carattere specifico? Ragiona sul pattern.</p>
+          <div class="csg-demo">
+            <code class="regex-example">^[a-z]+$</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="csg-step">
+        <div class="csg-step-num">03</div>
+        <div class="csg-step-body">
+          <h3>Verifica la regex</h3>
+          <p>Inserisci la tua espressione regolare e premi <strong>VERIFICA</strong>. Il sistema la testa su una serie di stringhe di controllo nascoste e ti dice quante ne hai indovinate.</p>
+        </div>
+      </div>
+
+      <div class="csg-step">
+        <div class="csg-step-num">04</div>
+        <div class="csg-step-body">
+          <h3>Scala la classifica</h3>
+          <p>Risolvere una challenge con meno tentativi ti dà un punteggio migliore. Più sfide risolvi e meno tentativi usi, più sali in classifica.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="csg-cta">
+      <a routerLink="/register" class="btn-hero-primary">Inizia a giocare</a>
+    </div>
+  </div>
+
+</div>

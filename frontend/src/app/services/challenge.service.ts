@@ -39,4 +39,8 @@ export class ChallengeService {
 submitAttempt(id: string, regex: string): Observable<any> {
   return this.http.post<any>(`${this.apiUrl}/challenge/${id}/attempt`, { regex });
 }
+
+getLeaderboard(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/challenge/leaderboard`);
+}
 }

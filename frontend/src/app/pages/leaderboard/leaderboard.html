@@ -1,0 +1,52 @@
+<div class="lb-container">
+  <header class="lb-header">
+    <a routerLink="/challenges" class="cd-back">← Sfide</a>
+    <h1 class="lb-title">CLASSIFICA</h1>
+    <p class="lb-sub">Basata su sfide risolte e media tentativi</p>
+  </header>
+
+  @if (isLoading) {
+    <p class="lb-loading">Caricamento...</p>
+  }
+
+  @if (!isLoading && entries.length === 0) {
+    <p class="lb-empty">Nessuno ha ancora risolto una sfida. Sii il primo! 🏆</p>
+  }
+
+  @if (!isLoading && entries.length > 0) {
+    <div class="lb-table-wrap">
+      <table class="lb-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Giocatore</th>
+            <th>Sfide risolte</th>
+            <th>Media tentativi</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (entry of entries; track entry.username; let i = $index) {
+            <tr [class.lb-top]="i < 3">
+              <td class="lb-rank">
+                @if (i === 0) { 🥇 }
+                @else if (i === 1) { 🥈 }
+                @else if (i === 2) { 🥉 }
+                @else { {{ i + 1 }} }
+              </td>
+              <td class="lb-user">
+                @if (entry.avatarUrl) {
+                  <img [src]="entry.avatarUrl" [alt]="entry.username" class="lb-avatar" />
+                } @else {
+                  <div class="lb-avatar-placeholder">{{ entry.username[0].toUpperCase() }}</div>
+                }
+                <span>{{ entry.username }}</span>
+              </td>
+              <td class="lb-solved">{{ entry.solved }}</td>
+              <td class="lb-avg">{{ entry.avgAttempts }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

@@ -9,4 +9,7 @@ const Attempt = sequelize.define('Attempt', {
   passed: { type: DataTypes.BOOLEAN, allowNull: false },
 }, { timestamps: true, createdAt: 'createdAt', updatedAt: false });
 
+const User = require('./user');
+Attempt.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+
 module.exports = Attempt;
