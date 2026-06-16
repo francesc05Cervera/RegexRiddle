@@ -25,9 +25,14 @@ const register = async (req, res) => {
       return res.status(400).json({ message: 'username, email e password sono obbligatori' });
 
     const normalizedEmail = email.trim().toLowerCase();
-    const existing = await User.findOne({ where: { email: normalizedEmail } });
-    if (existing)
+
+    const existingEmail = await User.findOne({ where: { email: normalizedEmail } });
+    if (existingEmail)
       return res.status(409).json({ message: 'Email già registrata' });
+
+    const existingUsername = await User.findOne({ where: { username: username.trim() } });
+    if (existingUsername)
+      return res.status(409).json({ message: 'Username già in uso' });
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({
