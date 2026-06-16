@@ -4,6 +4,56 @@
   flex-direction: column;
 }
 
+/* ── NAVBAR ── */
+.landing-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.12em;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.nav-logo-white {
+  color: var(--text);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-btn-login {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s;
+}
+.nav-btn-login:hover { color: var(--text); }
+
+.nav-btn-register {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  border: 1px solid var(--primary);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-sm);
+  transition: background 0.2s, color 0.2s;
+}
+.nav-btn-register:hover {
+  background: var(--primary);
+  color: #000;
+}
+
+/* ── CONTENT ── */
 .csg-content {
   max-width: 720px;
   margin: 0 auto;
@@ -27,7 +77,6 @@
   max-width: 560px;
 }
 
-/* STEPS */
 .csg-steps {
   display: flex;
   flex-direction: column;
@@ -45,7 +94,6 @@
 .csg-step-num {
   font-family: var(--font-display);
   font-size: 2rem;
-  color: var(--primary-dim);
   color: rgba(163,230,53,0.2);
   min-width: 48px;
   line-height: 1;
@@ -70,7 +118,6 @@
 .pos { color: var(--primary); font-weight: 600; }
 .neg { color: var(--error); font-weight: 600; }
 
-/* DEMO BOX */
 .csg-demo {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -99,7 +146,6 @@
   border: 1px solid var(--border);
 }
 
-/* CTA */
 .csg-cta {
   margin-top: 3rem;
   text-align: center;
