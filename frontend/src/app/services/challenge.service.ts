@@ -31,4 +31,12 @@ export class ChallengeService {
   getAllChallenges(): Observable<Challenge[]> {
     return this.http.get<Challenge[]>(`${this.apiUrl}/challenge`);
   }
+
+  getChallengeById(id: string): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/challenge/${id}`);
+}
+
+submitAttempt(id: string, regex: string): Observable<any> {
+  return this.http.post<any>(`${this.apiUrl}/challenge/${id}/attempt`, { regex });
+}
 }

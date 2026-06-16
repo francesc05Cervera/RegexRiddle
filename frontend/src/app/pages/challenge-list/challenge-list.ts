@@ -2,6 +2,8 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Challenge, ChallengeService } from '../../services/challenge.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-challenge-list',
@@ -14,10 +16,13 @@ export class ChallengeListComponent implements OnInit {
   isLoading = false;
   errorMessage = '';
 
-  constructor(
-    private challengeService: ChallengeService,
-    private cdr: ChangeDetectorRef  // ← aggiungi
-  ) {}
+constructor(
+  private challengeService: ChallengeService,
+  private cdr: ChangeDetectorRef,
+  private authService: AuthService,
+  private router: Router
+) {}
+
 
   ngOnInit(): void {
     this.loadChallenges();
@@ -40,4 +45,10 @@ export class ChallengeListComponent implements OnInit {
       }
     });
   }
+
+  logout(): void {
+  this.authService.logout();
+  this.router.navigate(['/login']);
+}
+
 }

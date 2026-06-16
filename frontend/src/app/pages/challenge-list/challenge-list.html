@@ -1,5 +1,8 @@
 <div class="challenge-list-container">
-  <h2>Elenco Challenge</h2>
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <h2>Elenco Challenge</h2>
+    <button (click)="logout()">Logout</button>
+  </div>
 
   <a routerLink="/create-challenge">Crea una nuova challenge</a>
 
@@ -23,7 +26,7 @@
           <p><strong>Esempio positivo:</strong> {{ challenge.positiveExample }}</p>
           <p><strong>Esempio negativo:</strong> {{ challenge.negativeExample }}</p>
 
-          <button type="button">Apri</button>
+          <a [routerLink]="['/challenges', challenge.id]">Apri</a>
         </div>
       }
     </div>
