@@ -69,6 +69,20 @@ const submitAttempt = async (req, res) => {
       return res.status(403).json({ message: 'Non puoi risolvere la tua stessa sfida' });
     }
 
+    const alreadySolved = await Attempt.findOne({
+      where: {
+        userId: req.user.id,
+        challengeId: id,
+        passed: true
+      }
+    });
+
+    if (alreadySolved) {
+      return res.status(403).json({
+        message: 'Hai già risolto questa sfida'
+      });
+    }
+
     let userRegex;
     try {
       userRegex = new RegExp(regex);

@@ -25,8 +25,9 @@ export class ChallengeDetailComponent implements OnInit {
   currentUserId: number | null = null;
 
   get isOwner(): boolean {
-    return this.challenge && this.currentUserId !== null
-      && this.challenge.authorId === this.currentUserId;
+    return !!this.challenge &&
+      this.currentUserId !== null &&
+      this.challenge.authorId === this.currentUserId;
   }
 
   constructor(
@@ -38,8 +39,8 @@ export class ChallengeDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUserId = this.authService.getCurrentUserId();
-    const id = this.route.snapshot.paramMap.get('id')!;
 
+    const id = this.route.snapshot.paramMap.get('id')!;
     this.challengeService.getChallengeById(id).subscribe({
       next: (data) => {
         this.challenge = data;
