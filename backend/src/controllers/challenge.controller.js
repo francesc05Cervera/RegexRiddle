@@ -29,9 +29,12 @@ const getChallengeById = async (req, res) => {
 const createChallenge = async (req, res) => {
   try {
     const { secretRegex, positiveExample, negativeExample, positiveControls, negativeControls } = req.body;
-    if (!secretRegex || !positiveExample || !negativeExample ||
-        !Array.isArray(positiveControls) || !Array.isArray(negativeControls))
+    if (
+      !secretRegex || !positiveExample || !negativeExample ||
+      !Array.isArray(positiveControls) || !Array.isArray(negativeControls)
+    ) {
       return res.status(400).json({ message: 'Tutti i campi della challenge sono obbligatori' });
+    }
 
     const newChallenge = await Challenge.create({
       authorId: req.user.id,
@@ -41,6 +44,7 @@ const createChallenge = async (req, res) => {
       positiveControls,
       negativeControls,
     });
+
     return res.status(201).json({ message: 'Challenge creata con successo', challenge: newChallenge });
   } catch (error) {
     return res.status(500).json({ message: 'Errore interno del server' });
@@ -51,26 +55,48 @@ const submitAttempt = async (req, res) => {
   try {
     const { id } = req.params;
     const { regex } = req.body;
-    if (!regex) return res.status(400).json({ message: 'La regex è obbligatoria' });
+
+    if (!regex) {
+      return res.status(400).json({ message: 'La regex è obbligatoria' });
+    }
 
     const challenge = await Challenge.findByPk(id);
-    if (!challenge) return res.status(404).json({ message: 'Challenge non trovata' });
+    if (!challenge) {
+      return res.status(404).json({ message: 'Challenge non trovata' });
+    }
+
+    if (challenge.authorId === req.user.id) {
+      return res.status(403).json({ message: 'Non puoi risolvere la tua stessa sfida' });
+    }
 
     let userRegex;
-    try { userRegex = new RegExp(regex); }
-    catch (e) { return res.status(400).json({ message: 'Regex non valida' }); }
+    try {
+      userRegex = new RegExp(regex);
+    } catch (e) {
+      return res.status(400).json({ message: 'Regex non valida' });
+    }
 
     const positiveResults = challenge.positiveControls.map(str => ({
-      input: str, expected: true, actual: userRegex.test(str),
+      input: str,
+      expected: true,
+      actual: userRegex.test(str),
     }));
+
     const negativeResults = challenge.negativeControls.map(str => ({
-      input: str, expected: false, actual: userRegex.test(str),
+      input: str,
+      expected: false,
+      actual: userRegex.test(str),
     }));
 
     const allResults = [...positiveResults, ...negativeResults];
     const passed = allResults.every(r => r.expected === r.actual);
 
-    await Attempt.create({ userId: req.user.id, challengeId: id, regex, passed });
+    await Attempt.create({
+      userId: req.user.id,
+      challengeId: id,
+      regex,
+      passed
+    });
 
     return res.status(200).json({ passed, results: allResults });
   } catch (error) {

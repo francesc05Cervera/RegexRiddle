@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ChallengeService } from '../../services/challenge.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-challenge-detail',
@@ -21,14 +22,24 @@ export class ChallengeDetailComponent implements OnInit {
   attemptError = '';
   isSubmitting = false;
 
+  currentUserId: number | null = null;
+
+  get isOwner(): boolean {
+    return this.challenge && this.currentUserId !== null
+      && this.challenge.authorId === this.currentUserId;
+  }
+
   constructor(
     private route: ActivatedRoute,
     private challengeService: ChallengeService,
+    private authService: AuthService,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
+    this.currentUserId = this.authService.getCurrentUserId();
     const id = this.route.snapshot.paramMap.get('id')!;
+
     this.challengeService.getChallengeById(id).subscribe({
       next: (data) => {
         this.challenge = data;
@@ -44,7 +55,8 @@ export class ChallengeDetailComponent implements OnInit {
   }
 
   submitAttempt(): void {
-    if (!this.userRegex) return;
+    if (!this.userRegex || this.isOwner) return;
+
     this.isSubmitting = true;
     this.attemptResult = null;
     this.attemptError = '';
